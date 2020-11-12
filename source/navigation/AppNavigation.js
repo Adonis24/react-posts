@@ -2,6 +2,7 @@ import React from "react";
 import { Platform } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import {createStackNavigator} from "@react-navigation/stack";
+import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs'
 import { Ionicons } from "@expo/vector-icons";
 import { MainScreen } from "../screens/MainScreen";
 import { PostScreen } from "../screens/PostScreen";
@@ -19,14 +20,13 @@ const PostNavigatorComponent = () => {
   return (
     <PostNavigator.Navigator
       initialRouteName="Main"
-      options={{
+      screenOptions={{
         title: "Мой блог",
         headerStyle: {
           backgroundColor:
             Platform.OS === "android" ? THEME.MAIN_COLOR : "#fff",
         },
         headerTintColor: Platform.OS === "android" ? "#fff" : THEME.MAIN_COLOR,
-        backgroundColor: THEME.MAIN_COLOR,
       }}
     >
       <PostNavigator.Screen
@@ -55,7 +55,6 @@ const BookedNavigatorComponent = ()=>{
           Platform.OS === "android" ? THEME.MAIN_COLOR : "#fff",
       },
       headerTintColor: Platform.OS === "android" ? "#fff" : THEME.MAIN_COLOR,
-      backgroundColor: THEME.MAIN_COLOR,
     }}
   >
     <BookedNavigator.Screen
@@ -73,7 +72,7 @@ const BookedNavigatorComponent = ()=>{
   </BookedNavigator.Navigator>
   )
 }
-const Tab = createBottomTabNavigator();
+const Tab = Platform.OS === 'android'? createMaterialBottomTabNavigator(): createBottomTabNavigator();
 const BottomNavigatorComponent = (props) => {
   return (
     <Tab.Navigator {...props} initialRouteName="Booked"
