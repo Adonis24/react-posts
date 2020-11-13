@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Button, FlatList } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import {CommonActions} from '@react-navigation/native'
 import { DATA } from "../data";
 import {Post} from '../components/Post'
@@ -13,8 +14,8 @@ export const MainScreen = ({ navigation,route }) => {
     navigation.navigate("Post", {postId: post.id, date: post.date, booked: post.booked});
   };
   navigation.setOptions({
-    headerRight:(props) => (
-      <HeaderButtons HeaderButtonComponent={AppHeaderIcon} {...props}>
+    headerRight:() => (
+      <HeaderButtons HeaderButtonComponent={AppHeaderIcon} >
         <Item
           title="Take photo"
           iconName="ios-camera"
@@ -24,13 +25,13 @@ export const MainScreen = ({ navigation,route }) => {
         /> 
       </HeaderButtons>
     ),
-    headerLeft: (props)=>(
-      <HeaderButtons HeaderButtonComponent={AppHeaderIcon} {...props}>
+    headerLeft: ()=>(
+      <HeaderButtons HeaderButtonComponent={AppHeaderIcon} >
       <Item
         title="menu drawer"
         iconName="ios-menu"
         onPress={() => 
-          console.log("Выбор меню")
+          navigation.toggleDrawer()
         }
       /> 
     </HeaderButtons>
