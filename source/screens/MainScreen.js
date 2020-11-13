@@ -5,6 +5,7 @@ import {CommonActions} from '@react-navigation/native'
 import { DATA } from "../data";
 import {Post} from '../components/Post'
 import { AppHeaderIcon } from "../components/AppHeadericon";
+import { PostList } from "../components/PostList";
 
 export const MainScreen = ({ navigation,route }) => {
   const openPostHandler = (post) => {
@@ -35,17 +36,7 @@ export const MainScreen = ({ navigation,route }) => {
     </HeaderButtons>
      )
   },[navigation,route])
-  return (
-    <View style={styles.wrapper}>
-      <FlatList
-        data={DATA}
-        keyExtractor={(post) => post.id.toString()}
-        renderItem={({ item }) => {
-          return <Post post={item} onOpen={openPostHandler}/>;
-        }}
-      />
-    </View>
-  );
+  return <PostList data={DATA} onOpen={openPostHandler}/>
 };
 
 

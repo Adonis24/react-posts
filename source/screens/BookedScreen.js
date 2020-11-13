@@ -5,11 +5,13 @@ import {CommonActions} from '@react-navigation/native'
 import { DATA } from "../data";
 import {Post} from '../components/Post'
 import { AppHeaderIcon } from "../components/AppHeadericon";
+import { PostList } from "../components/PostList";
 
 export const BookedScreen = ({ navigation,route }) => {
   const openPostHandler = (post) => {
     navigation.navigate("Booked", {postId: post.id, date: post.date, booked: post.booked});
   };
+  const data = DATA.filter(post=>post.booked)
   navigation.setOptions({
     headerTitle:'Избранное',
     headerLeft: (props)=>(
@@ -24,17 +26,7 @@ export const BookedScreen = ({ navigation,route }) => {
     </HeaderButtons>
      )
   },[navigation,route])
-  return (
-    <View style={styles.wrapper}>
-      <FlatList
-        data={DATA.filter(post=>post.booked)}
-        keyExtractor={(post) => post.id.toString()}
-        renderItem={({ item }) => {
-          return <Post post={item} onOpen={openPostHandler}/>;
-        }}
-      />
-    </View>
-  );
+  return <PostList data={data} onOpen={openPostHandler}/>
 };
 
 

@@ -76,8 +76,10 @@ const Tab = Platform.OS === 'android'? createMaterialBottomTabNavigator(): creat
 const BottomNavigatorComponent = (props) => {
   return (
     <Tab.Navigator {...props} initialRouteName="Booked"
+    shifting={true}
     tabBarOptions={{
       activeTintColor: THEME.MAIN_COLOR,
+      shifting:'true'
     }}>
       <Tab.Screen
         name="Booked"
