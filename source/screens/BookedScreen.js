@@ -20,7 +20,7 @@ export const BookedScreen = ({ navigation,route }) => {
         title="menu drawer"
         iconName="ios-menu"
         onPress={() => 
-          console.log("Выбор меню")
+          navigation.toggleDrawer()
         }
       /> 
     </HeaderButtons>

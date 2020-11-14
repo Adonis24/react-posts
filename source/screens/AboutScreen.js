@@ -24,7 +24,8 @@ export const AboutScreen = ({ navigation, route }) => {
 
   return (
     <View style={styles.center}>
-      <Text>AboutScreen</Text>
+      <Text>Лучшее приложения для планирования заметок. </Text>
+      <Text>Версия приложения <Text style={styles.version}>1.0.0</Text></Text>
     </View>
   );
 };
@@ -38,4 +39,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  version:{
+    fontFamily:'open-bold'
+  }
 });
