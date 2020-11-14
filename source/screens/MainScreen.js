@@ -14,13 +14,14 @@ export const MainScreen = ({ navigation,route }) => {
     navigation.navigate("Post", {postId: post.id, date: post.date, booked: post.booked});
   };
   navigation.setOptions({
+    title:'Мой блог',
     headerRight:() => (
       <HeaderButtons HeaderButtonComponent={AppHeaderIcon} >
         <Item
           title="Take photo"
           iconName="ios-camera"
           onPress={() => 
-            console.log("Выбор фото")
+            navigation.navigate("Create")
           }
         /> 
       </HeaderButtons>

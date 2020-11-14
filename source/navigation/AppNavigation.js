@@ -4,7 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
-import { createDrawerNavigator } from "@react-navigation/drawer";
+import { createDrawerNavigator, DrawerItem } from "@react-navigation/drawer";
 import { MainScreen } from "../screens/MainScreen";
 import { PostScreen } from "../screens/PostScreen";
 import { THEME } from "../theme";
@@ -73,7 +73,24 @@ const BookedNavigatorComponent = () => {
     </BookedNavigator.Navigator>
   );
 };
-const Tab = Platform.OS === "android"
+const CreateNavigator = createStackNavigator();
+const CreateNavigatorComponent = () => {
+  return (
+    <CreateNavigator.Navigator>
+      <CreateNavigator.Screen name="Create" component={CreateScreen} />
+    </CreateNavigator.Navigator>
+  );
+};
+const AboutNavigator = createStackNavigator();
+const AboutNavigatorComponent = () => {
+  return (
+    <AboutNavigator.Navigator>
+      <AboutNavigator.Screen name="About" component={AboutScreen} />
+    </AboutNavigator.Navigator>
+  );
+};
+const Tab =
+  Platform.OS === "android"
     ? createMaterialBottomTabNavigator()
     : createBottomTabNavigator();
 const BottomNavigatorComponent = () => {
@@ -103,19 +120,35 @@ const BottomNavigatorComponent = () => {
   );
 };
 
-// initialRouteName="Booked"
-//     shifting={true}
-//     tabBarOptions={{
-//       activeTintColor: THEME.MAIN_COLOR,
-//       shifting:'true'
-//     }}
 const Drawer = createDrawerNavigator();
 const DrawerNavigatorComponent = () => {
   return (
-    <Drawer.Navigator initialRouteName='PostTab' screenOptions={{ headerShown: false }} >
-      <Drawer.Screen name="PostTab" component={BottomNavigatorComponent} />
-      <Drawer.Screen name="About" component={AboutScreen} />
-      <Drawer.Screen name="Create" component={CreateScreen} />
+    <Drawer.Navigator
+      initialRouteName="PostTab"
+      screenOptions={{ headerShown: false, activeTintColor: THEME.MAIN_COLOR }}
+      drawerContentOptions={{
+        activeTintColor: THEME.MAIN_COLOR,
+        itemStyle: { fontFamily: "open-bold"},
+      }}
+    >
+      <Drawer.Screen
+        name="PostTab"
+        component={BottomNavigatorComponent}
+        options={{
+          drawerLabel: "Главная",
+          drawerIcon: () => <Ionicons name="ios-star" />,
+        }}
+      />
+      <Drawer.Screen
+        name="About"
+        component={AboutNavigatorComponent}
+        options={{ drawerLabel: "О приложении" }}
+      />
+      <Drawer.Screen
+        name="Create"
+        component={CreateNavigatorComponent}
+        options={{ drawerLabel: "Создать пост" }}
+      />
     </Drawer.Navigator>
   );
 };
@@ -126,3 +159,9 @@ export const AppNavigation = () => {
     </NavigationContainer>
   );
 };
+// initialRouteName="Booked"
+//     shifting={true}
+//     tabBarOptions={{
+//       activeTintColor: THEME.MAIN_COLOR,
+//       shifting:'true'
+//     }}
