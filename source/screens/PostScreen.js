@@ -1,13 +1,25 @@
-import React from "react";
+import React, { useEffect, useCallback} from "react";
+// import {useDispatch} from 'react-native'
+import {useSelector, useDispatch} from 'react-redux'
 import { View, Text, StyleSheet, Image, Button, Alert } from "react-native";
 import {HeaderButtons,Item} from 'react-navigation-header-buttons'
 import { DATA } from "../data";
 import { THEME } from "../theme";
 import { AppHeaderIcon } from "../components/AppHeadericon";
+import {toggleBooked} from '../store/actions/post'
 
 export const PostScreen = ({ route, navigation }) => {
+  const dispatch = useDispatch()
   const postId = route.params?.postId;
   const post = DATA.find((p) => p.id === postId);
+  const booked = useSelector(state => state.post.bookedPosts.some(post => post.id === postId))
+  //useEffect(() => {navigation.setParams({booked})})
+  const toogleBookedHandler = useCallback(() => {
+    dispatch(toggleBooked(postId))
+  },[dispatch,postId])
+  // useEffect(() => {
+  //   navigation.setParams({toogleBookedHandler})
+  // },[toogleBookedHandler])
   const removeHandler = () => {
     // Works on both Android and iOS
     Alert.alert(
@@ -26,14 +38,12 @@ export const PostScreen = ({ route, navigation }) => {
   };
   navigation.setOptions({
 headerRight: (props)=>{
-  const iconName = route.params?.booked ? 'ios-star' : 'ios-star-outline'
+  const iconName = booked ? 'ios-star' : 'ios-star-outline'
   return (<HeaderButtons HeaderButtonComponent={AppHeaderIcon} {...props}>
   <Item
     title="Take favorite"
     iconName={iconName}
-    onPress={() => 
-      console.log("Добавить в избранное")
-    }
+    onPress={toogleBookedHandler}
   /> 
 </HeaderButtons>
 )}

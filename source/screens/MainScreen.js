@@ -1,18 +1,20 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { View, Text, StyleSheet, Button, FlatList } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import {CommonActions} from '@react-navigation/native'
-import { DATA } from "../data";
-import {Post} from '../components/Post'
+import {useDispatch, useSelector} from 'react-redux' 
 import { AppHeaderIcon } from "../components/AppHeadericon";
 import { PostList } from "../components/PostList";
+import { loadPosts } from "../store/actions/post";
 
 export const MainScreen = ({ navigation,route }) => {
   const openPostHandler = (post) => {
-    // navigation.dispatch(CommonActions.setParams({ booked: post.booked}));
     navigation.navigate("Post", {postId: post.id, date: post.date, booked: post.booked});
   };
+  const dispatch = useDispatch()
+  useEffect(()=>{
+    dispatch(loadPosts())
+  },[dispatch])
+  const allPosts = useSelector(state => state.post.allPosts)
   navigation.setOptions({
     title:'Мой блог',
     headerRight:() => (
@@ -38,7 +40,7 @@ export const MainScreen = ({ navigation,route }) => {
     </HeaderButtons>
      )
   },[navigation,route])
-  return <PostList data={DATA} onOpen={openPostHandler}/>
+  return <PostList data={allPosts} onOpen={openPostHandler}/>
 };
 
 

@@ -97,22 +97,22 @@ const BottomNavigatorComponent = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name="Booked"
-        component={BookedNavigatorComponent}
-        options={{
-          tabBarLabel: "Избранное",
-          tabBarIcon: (info) => (
-            <Ionicons name="ios-star" size={25} color={THEME.MAIN_COLOR} />
-          ),
-        }}
-      />
-      <Tab.Screen
         name="Post"
         component={PostNavigatorComponent}
         options={{
           tabBarLabel: "Посты",
           tabBarIcon: (info) => (
             <Ionicons name="ios-albums" size={25} color={THEME.MAIN_COLOR} />
+          ),
+        }}
+      />
+     <Tab.Screen
+        name="Booked"
+        component={BookedNavigatorComponent}
+        options={{
+          tabBarLabel: "Избранное",
+          tabBarIcon: (info) => (
+            <Ionicons name="ios-star" size={25} color={THEME.MAIN_COLOR} />
           ),
         }}
       />

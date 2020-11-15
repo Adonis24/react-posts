@@ -1,17 +1,17 @@
 import React from "react";
 import { View, Text, StyleSheet, Button, FlatList } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
-import {CommonActions} from '@react-navigation/native'
-import { DATA } from "../data";
-import {Post} from '../components/Post'
+import { useSelector} from 'react-redux' 
 import { AppHeaderIcon } from "../components/AppHeadericon";
 import { PostList } from "../components/PostList";
+import { loadPosts } from "../store/actions/post";
 
 export const BookedScreen = ({ navigation,route }) => {
   const openPostHandler = (post) => {
     navigation.navigate("Booked", {postId: post.id, date: post.date, booked: post.booked});
   };
-  const data = DATA.filter(post=>post.booked)
+
+  const bookedPosts = useSelector(state => state.post.bookedPosts)
   navigation.setOptions({
     headerTitle:'Избранное',
     headerLeft: (props)=>(
@@ -26,7 +26,7 @@ export const BookedScreen = ({ navigation,route }) => {
     </HeaderButtons>
      )
   },[navigation,route])
-  return <PostList data={data} onOpen={openPostHandler}/>
+  return <PostList data={bookedPosts} onOpen={openPostHandler}/>
 };
 
 
