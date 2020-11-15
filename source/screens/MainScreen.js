@@ -8,7 +8,7 @@ import { loadPosts } from "../store/actions/post";
 
 export const MainScreen = ({ navigation,route }) => {
   const openPostHandler = (post) => {
-    navigation.navigate("Post", {postId: post.id, date: post.date, booked: post.booked});
+    navigation.navigate("Post", {postId: post.id, date: post.date});
   };
   const dispatch = useDispatch()
   useEffect(()=>{

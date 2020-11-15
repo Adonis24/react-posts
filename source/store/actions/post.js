@@ -1,4 +1,4 @@
-import {LOAD_POSTS, TOGGLE_BOOKED} from '../../store/types'
+import {LOAD_POSTS, REMOVE_POST, TOGGLE_BOOKED} from '../../store/types'
 import {DATA} from '../../data'
 export const loadPosts = () => {
     return {
@@ -10,6 +10,13 @@ export const loadPosts = () => {
 export const toggleBooked = id =>{
     return {
         type: TOGGLE_BOOKED,
+        payload: id
+    }
+}
+
+export const removePost = id => {
+    return {
+        type: REMOVE_POST,
         payload: id
     }
 }
