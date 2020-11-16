@@ -1,9 +1,7 @@
 import React, { useEffect, useCallback } from "react";
-// import {useDispatch} from 'react-native'
 import { useSelector, useDispatch } from "react-redux";
 import { View, Text, StyleSheet, Image, Button, Alert } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
-import { DATA } from "../data";
 import { THEME } from "../theme";
 import { AppHeaderIcon } from "../components/AppHeadericon";
 import { toggleBooked, removePost } from "../store/actions/post";
@@ -25,12 +23,12 @@ export const PostScreen = ({ route, navigation }) => {
     dispatch(toggleBooked(postId));
   }, [dispatch, postId]);
 
-  const removePostHandler = useCallback(() => {
-    navigation.navigate('Main')
-    dispatch(removePost(postId));
-  }, [dispatch, postId]);
+  // const removePostHandler = useCallback(() => {
+  //   navigation.navigate('Main')
+  //   dispatch(removePost(postId));
+  // }, [dispatch, postId]);
 
-  const removeHandler = () => {
+  const removeHandler = useCallback(() => {
     // Works on both Android and iOS
     Alert.alert(
       "Удаление поста",
@@ -47,7 +45,7 @@ export const PostScreen = ({ route, navigation }) => {
       ],
       { cancelable: false }
     );
-  };
+  },[dispatch,postId]);
   navigation.setOptions(
     {
       headerRight: (props) => {
@@ -65,7 +63,8 @@ export const PostScreen = ({ route, navigation }) => {
     },
     [navigation, route]
   );
-  if (!post) {
+  if ((!post) || (!post.text)) {
+    console.log(post)
     return null
   }
   return (

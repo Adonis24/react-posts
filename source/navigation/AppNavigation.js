@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Platform } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -12,12 +12,15 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { BookedScreen } from "../screens/BookedScreen";
 import { AboutScreen } from "../screens/AboutScreen";
 import { CreateScreen } from "../screens/CreateScreen";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
 const postHandler = (date) => {
   return "Пост " + new Date(date).toLocaleDateString();
 };
+
 const PostNavigator = createStackNavigator();
-const PostNavigatorComponent = () => {
+const PostNavigatorComponent = ({route}) => {
+
   return (
     <PostNavigator.Navigator
       initialRouteName="Main"
@@ -101,7 +104,7 @@ const BottomNavigatorComponent = () => {
         component={PostNavigatorComponent}
         options={{
           tabBarLabel: "Посты",
-          tabBarIcon: (info) => (
+          tabBarIcon: () => (
             <Ionicons name="ios-albums" size={25} color={THEME.MAIN_COLOR} />
           ),
         }}
@@ -111,7 +114,7 @@ const BottomNavigatorComponent = () => {
         component={BookedNavigatorComponent}
         options={{
           tabBarLabel: "Избранное",
-          tabBarIcon: (info) => (
+          tabBarIcon: () => (
             <Ionicons name="ios-star" size={25} color={THEME.MAIN_COLOR} />
           ),
         }}

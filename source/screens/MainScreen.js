@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React,{useEffect,useCallback,useState} from "react";
 import { View, Text, StyleSheet, Button, FlatList } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import {useDispatch, useSelector} from 'react-redux' 
@@ -7,13 +7,14 @@ import { PostList } from "../components/PostList";
 import { loadPosts } from "../store/actions/post";
 
 export const MainScreen = ({ navigation,route }) => {
-  const openPostHandler = (post) => {
-    navigation.navigate("Post", {postId: post.id, date: post.date});
-  };
+
   const dispatch = useDispatch()
   useEffect(()=>{
     dispatch(loadPosts())
   },[dispatch])
+  const openPostHandler = (post) => {
+    navigation.navigate("Post", {postId: post.id, date: post.date, booked: post.booked});
+  };
   const allPosts = useSelector(state => state.post.allPosts)
   navigation.setOptions({
     title:'Мой блог',
