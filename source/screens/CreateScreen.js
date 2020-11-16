@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   View,
   Text,
@@ -15,22 +15,26 @@ import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { AppHeaderIcon } from "../components/AppHeadericon";
 import { THEME } from "../theme";
 import { addPost } from "../store/actions/post";
+import { PhotoPicker } from "../components/PhotoPicker";
 
 export const CreateScreen = ({ navigation, route }) => {
-  const [text, setText] = useState('')
+  const [text, setText] = useState("");
+  const imgRef = useRef();
   const dispatch = useDispatch();
-  const img = "https://cdn.londonandpartners.com/visit/general-london/areas/river/76709-640x360-houses-of-parliament-and-london-eye-on-thames-from-above-640.jpg";
-  const saveHandler = () => {
+  const photoPickHandler = (uri) => {
+    imgRef.current = uri;
+  };
+    const saveHandler = () => {
     const post = {
       date: new Date().toJSON(),
       text: text,
-      img: img,
+      img: imgRef.current,
       booked: false,
     };
     dispatch(addPost(post));
-    console.log(post)
     navigation.navigate("Main");
   };
+  
   navigation.setOptions(
     {
       title: "Создать пост",
@@ -49,31 +53,32 @@ export const CreateScreen = ({ navigation, route }) => {
   );
 
   return (
-    <ScrollView >
-      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}  >
-        <View style={styles.wrapper}  >
+    <ScrollView>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.wrapper}>
           <Text style={styles.title}>Создай новый пост</Text>
           <TextInput
             style={styles.textarea}
             placeholder="Введите текст поста"
-            onChangeText={text => setText(text)}
+            onChangeText={(text) => setText(text)}
             value={text}
             multiline
-            
           />
-          <Image
+          <PhotoPicker onPick={photoPickHandler} />
+          {/* <Image
             style={{ width: "100%", height: 200, marginBottom: 10 }}
             source={{
               uri: img,
             }}
-          />
+          /> */}
           <Button
             title="Создать пост"
             color={THEME.MAIN_COLOR}
             onPress={saveHandler}
+            disabled={!text}
           />
         </View>
-     </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback>
     </ScrollView>
   );
 };

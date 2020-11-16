@@ -8,7 +8,7 @@ import { loadPosts } from "../store/actions/post";
 
 export const BookedScreen = ({ navigation,route }) => {
   const openPostHandler = (post) => {
-    navigation.navigate("Booked", {postId: post.id, date: post.date, booked: post.booked});
+    navigation.navigate("Post", {postId: post.id, date: post.date, booked: post.booked});
   };
 
   const bookedPosts = useSelector(state => state.post.bookedPosts)
