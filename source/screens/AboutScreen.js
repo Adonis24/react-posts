@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, Button, FlatList } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
-import { DATA } from "../data";
 import { AppHeaderIcon } from "../components/AppHeadericon";
 
 export const AboutScreen = ({ navigation, route }) => {
