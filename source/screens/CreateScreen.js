@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   View,
   Text,
@@ -34,7 +34,7 @@ export const CreateScreen = ({ navigation, route }) => {
     dispatch(addPost(post));
     navigation.navigate("Main");
   };
-  
+  useEffect(() => {
   navigation.setOptions(
     {
       title: "Создать пост",
@@ -48,9 +48,8 @@ export const CreateScreen = ({ navigation, route }) => {
           />
         </HeaderButtons>
       ),
-    },
-    [navigation, route]
-  );
+    }
+  )}, [navigation])
 
   return (
     <ScrollView>

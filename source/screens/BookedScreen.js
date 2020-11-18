@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet, Button, FlatList } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { useSelector} from 'react-redux' 
@@ -12,6 +12,8 @@ export const BookedScreen = ({ navigation,route }) => {
   };
 
   const bookedPosts = useSelector(state => state.post.bookedPosts)
+
+  useEffect(() => {
   navigation.setOptions({
     headerTitle:'Избранное',
     headerLeft: (props)=>(
@@ -25,7 +27,7 @@ export const BookedScreen = ({ navigation,route }) => {
       /> 
     </HeaderButtons>
      )
-  },[navigation,route])
+  })},[navigation])
   return <PostList data={bookedPosts} onOpen={openPostHandler}/>
 };
 

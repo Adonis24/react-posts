@@ -20,8 +20,8 @@ export const PostScreen = ({ route, navigation }) => {
   );
 
   const toogleBookedHandler = useCallback(() => {
-    dispatch(toggleBooked(postId));
-  }, [dispatch, postId]);
+    dispatch(toggleBooked(post));
+  }, [dispatch, post]);
 
   // const removePostHandler = useCallback(() => {
   //   navigation.navigate('Main')
@@ -46,6 +46,7 @@ export const PostScreen = ({ route, navigation }) => {
       { cancelable: false }
     );
   },[dispatch,postId]);
+  React.useEffect(() => {
   navigation.setOptions(
     {
       headerRight: (props) => {
@@ -60,9 +61,8 @@ export const PostScreen = ({ route, navigation }) => {
           </HeaderButtons>
         );
       },
-    },
-    [navigation, route]
-  );
+    }
+  )},[navigation]);
   if ((!post) || (!post.text)) {
     console.log(post)
     return null
